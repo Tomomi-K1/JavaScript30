@@ -6,14 +6,15 @@
   <link rel="icon" href="https://fav.farm/🔥" />
 </head>
 <body>
-
-
     <div class="clock">
       <div class="clock-face">
         <div class="hand hour-hand"></div>
         <div class="hand min-hand"></div>
         <div class="hand second-hand"></div>
       </div>
+    </div>
+    <div>
+      <h2 class="currentTime"></h2>
     </div>
 
 
@@ -30,6 +31,7 @@
       margin: 0;
       font-size: 2rem;
       display: flex;
+      flex-direction: column;
       flex: 1;
       min-height: 100vh;
       align-items: center;
@@ -63,12 +65,51 @@
       background: black;
       position: absolute;
       top: 50%;
+      transform:rotate(90deg);
+      transform-origin: right;
+      transition: all 0.5s ;
+      transition-timing-function: cubic-bezier(0.42, 0, 0.86, 1.62);
+    }
+
+    .hour-hand {
+      background-color: red;
     }
 
   </style>
 
   <script>
+    const secondhand = document.querySelector(".second-hand");
+    const minhand = document.querySelector(".min-hand");
+    const hourhand = document.querySelector(".hour-hand");
+    const currentTime = document.querySelector(".currentTime");
 
+    function setTime(){
+    let currentDate = new Date();
+    let sec =currentDate.getSeconds();
+    let secDegree = ((sec/60)*360) +90;
+    if(secDegree ===90){
+      secondhand.style.transition = "none";
+    }  
+    secondhand.style.transform = `rotate(${secDegree}deg)`;
+
+    let min =currentDate.getMinutes();
+    let minDegree = ((min/60)*360) +90;
+    if(minDegree ===90){
+      minhand.style.transition = "none";
+    }  
+    minhand.style.transform = `rotate(${minDegree}deg)`;
+
+    let hour = currentDate.getHours();
+    let hourDegrees = ((hour/12)*360)+90;
+    if(hourDegrees ===90){
+      hourhand.style.transition = "none";
+    }  
+    hourhand.style.transform = `rotate(${hourDegrees}deg)`;
+  
+    currentTime.innerHTML = `Date: ${currentDate.toLocaleString()}`;
+    }
+
+    setInterval(setTime,1000)
 
   </script>
 </body>
