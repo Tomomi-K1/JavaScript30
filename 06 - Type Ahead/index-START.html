@@ -42,7 +42,7 @@ function displayMatches(e){
   let newLiArray =matchArray.map( item =>{
     const regex = new RegExp(this.value, 'gi');
     const cityName = item.city.replace(regex, `<span class='hl'>${this.value}</span>`);
-    const stateName = item.city.replace(regex, `<span class='hl'>${this.value}</span>`);
+    const stateName = item.state.replace(regex, `<span class='hl'>${this.value}</span>`);
     return ` 
       <li>
         <span class="name">${cityName}, ${stateName}</span>
